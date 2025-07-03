@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คำถามและคำตอบ</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+             background: url("https://i.pinimg.com/736x/f2/7f/31/f27f311115929d0ca54d34ced5039260.jpg")
+          center/cover no-repeat;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* Background styling to mimic the image - a blue gradient */
+            /*background: linear-gradient(135deg, #a7d9f7, #66b2e0);*/
+            background-size: cover;
+            background-position: center;
+            position: relative; /* Needed for overlay and Finish button positioning */
+        }
+
+        /* Overlay to lighten the background and make content stand out */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent white overlay */
+            z-index: -1; /* Place behind content */
+        }
+
+        .qa-container {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background for the main content area */
+            border-radius: 20px; /* Rounded corners for the main content box */
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Deeper shadow for depth */
+            max-width: 900px; /* Max width for the entire QA section */
+            width: 95%; /* Responsive width */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 25px; /* Space between question and answer sections */
+            position: relative; /* For positioning elements inside, like Finish button if moved here */
+        }
+
+        .question-box {
+            background-color: #4a90e2; /* Blue background for the question box */
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px; /* Rounded corners */
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px; /* Space between emoji and text */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); /* Shadow for question box */
+            margin-bottom: 20px; /* Space below question box */
+        }
+
+        .question-box .emoji {
+            font-size: 2.5rem; /* Larger emoji size */
+        }
+
+        .answer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid for answer inputs */
+            gap: 20px; /* Space between input fields */
+            justify-content: center;
+        }
+
+        .answer-input-container {
+            background-color: #87ceeb; /* Lighter blue for input containers */
+            border-radius: 15px; /* Rounded corners */
+            padding: 20px; /* Padding inside the input container */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Shadow for input containers */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            font-size: 1.75rem; /* text-3xl for label */
+            font-weight: 600; /* Semi-bold for label */
+        }
+
+        .answer-input-container textarea {
+            width: 100%;
+            height: 150px; /* Fixed height for textarea */
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #6495ed; /* Border color for textarea */
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background for input */
+            color: #333; /* Text color inside input */
+            font-size: 1rem;
+            resize: vertical; /* Allow vertical resizing */
+            outline: none; /* Remove outline on focus */
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .answer-input-container textarea:focus {
+            border-color: #4a90e2; /* Darker blue border on focus */
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(74, 144, 226, 0.2); /* Subtle focus ring */
+        }
+
+        .finish-button {
+            position: absolute;
+            top: 20px; /* Distance from top */
+            right: 20px; /* Distance from right */
+            background-color: #4a90e2; /* Blue background for Finish button */
+            color: white;
+            padding: 12px 25px;
+            border-radius: 10px; /* Rounded corners */
+            font-size: 1.125rem; /* text-lg */
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .finish-button:hover {
+            background-color: #3a7bd5; /* Darker blue on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .qa-container {
+                padding: 20px;
+            }
+            .question-box {
+                font-size: 1.75rem; /* Adjust font size for smaller screens */
+                padding: 15px 20px;
+            }
+            .question-box .emoji {
+                font-size: 2rem;
+            }
+            .answer-input-container {
+                font-size: 1.5rem;
+                padding: 15px;
+            }
+            .answer-input-container textarea {
+                height: 120px; /* Adjust textarea height for smaller screens */
+            }
+            .finish-button {
+                top: 15px;
+                right: 15px;
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="qa-container">
+        <!-- Question Section -->
+        <div class="question-box">
+            <span class="emoji">😊</span>
+            <span>Question</span>
+        </div>
+
+        <!-- Answer Input Fields Grid -->
+        <div class="answer-grid">
+            <!-- Answer Input Field -->
+            <div class="answer-input-container">
+                <span>Answer</span>
+                <textarea id="userAnswer" placeholder="Type your answer here..."></textarea>
+            </div>
+
+            <!-- AI Input Field (read-only or for display) -->
+            <div class="answer-input-container">
+                <span>AI</span>
+                <textarea id="aiAnswer" placeholder="AI's response will appear here..." readonly></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Finish Button (positioned outside the main container for absolute positioning) -->
+    <button class="finish-button">Finish</button>
+
+</body>
+</html>
